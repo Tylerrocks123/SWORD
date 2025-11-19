@@ -24,7 +24,9 @@ function init()
 {
     state = menu
 
-    avatar.color = `green`;
+    avatar.setImage("#default");
+    avatar.img.w = avatar.w;
+    avatar.img.h = avatar.h;
 
     level.x = 0; 
     level.y = 0;
@@ -197,7 +199,7 @@ function game()
    }
 
     sword.render();
-    avatar.render();
+    avatar.graphic();
     
 }
 
