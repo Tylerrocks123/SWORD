@@ -25,8 +25,15 @@ function init()
     state = menu
 
     avatar.setImage("#default");
+    sword.setImage("#swordup");
     avatar.img.w = avatar.w;
     avatar.img.h = avatar.h;
+    sword.img.w = sword.w;
+    sword.img.h = sword.h;
+    sword.w = 12;
+    sword.h = 100;
+    
+
 
     level.x = 0; 
     level.y = 0;
@@ -62,10 +69,9 @@ function init()
     wall[3].x = c.width/2
     wall[3].y = c.height-100
     wall[3].world = level
-
-    sword.color = `#000000`;
 }
 
+sword.color = "#5023d3"
 init();
 
 /*---------------Game Screens (states)----------------*/
@@ -111,29 +117,25 @@ function game()
     {
         sword.x = avatar.top().x;
         sword.y = avatar.top().y;
-        sword.w = 12;
-        sword.h = 100;
+        sword.angle = 0;
     }
     if(down == true)
     {
         sword.x = avatar.bottom().x;
         sword.y = avatar.bottom().y;
-        sword.w = 12;
-        sword.h = 100;
+        sword.angle = 180;
     }
     if(left == true)
     {
         sword.x = avatar.left().x;
         sword.y = avatar.left().y;
-        sword.h = 12;
-        sword.w = 100;
+        sword.angle = -90;
     }
     if(right == true)
     {
         sword.x = avatar.right().x;
         sword.y = avatar.right().y;
-        sword.h = 12;
-        sword.w = 100;
+        sword.angle = 90
     }
     avatar.vx *= .85;
     avatar.vy *= .85;
@@ -200,6 +202,7 @@ function game()
 
     sword.render();
     avatar.graphic();
+    sword.graphic();
     
 }
 
