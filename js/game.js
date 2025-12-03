@@ -71,19 +71,19 @@ function init()
     wall[3].world = level
 
     wall[4]=new GameObject();
-    wall[4].w = 400;
+    wall[4].w = 500;
     wall[4].h = 24;
     wall[4].color = `black`
-    wall[4].x = c.width/2 + 500
+    wall[4].x = c.width/2 + 550
     wall[4].y = c.height - 300
     wall[4].world = level
 
     wall[5]=new GameObject();
-    wall[5].h = 400;
+    wall[5].h = 1200;
     wall[5].w = 24;
     wall[5].color = `black`
     wall[5].x = 456;
-    wall[5].y = c.height/2 + 400 
+    wall[5].y = c.height/2 + 800
     wall[5].world = level
 
     wall[6]=new GameObject();
@@ -95,36 +95,28 @@ function init()
     wall[6].world = level
 
     wall[7]=new GameObject();
-    wall[7].w = 400;
-    wall[7].h = 24;
+    wall[7].h = 600;
+    wall[7].w = 24;
     wall[7].color = `black`
-    wall[7].x = c.width/2 + 250
-    wall[7].y = c.height +500
+    wall[7].x = 900;
+    wall[7].y = c.height/2 + 450 
     wall[7].world = level
 
     wall[8]=new GameObject();
-    wall[8].h = 400;
+    wall[8].h = 1000;
     wall[8].w = 24;
     wall[8].color = `black`
-    wall[8].x = 456;
-    wall[8].y = c.height/2 + 550
+    wall[8].x = 1200;
+    wall[8].y = c.height/2 + 450 
     wall[8].world = level
 
     wall[9]=new GameObject();
-    wall[9].w = 400;
+    wall[9].w = 1000;
     wall[9].h = 24;
     wall[9].color = `black`
-    wall[9].x = c.width/2 + 750
-    wall[9].y = c.height +500
+    wall[9].x = c.width/2 + 350
+    wall[9].y = c.height + 500
     wall[9].world = level
-
-    wall[10]=new GameObject();
-    wall[10].w = 400;
-    wall[10].h = 24;
-    wall[10].color = `black`
-    wall[10].x = c.width/2 + 500
-    wall[10].y = c.height +500
-    wall[10].world = level
 }
 
 sword.color = "#5023d3"
