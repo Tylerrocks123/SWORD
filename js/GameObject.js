@@ -137,4 +137,19 @@ class GameObject
         }
         return false; 
     }
+    drawText(_x=this.x, _y=this.y) {
+        if (!this.text) return;
+
+        ctx.save();
+        ctx.translate(_x + this.world.x, _y + this.world.y);
+
+        ctx.font = this.textFont;
+        ctx.fillStyle = this.textColor;
+        ctx.textAlign = this.textAlign;
+        ctx.textBaseline = "middle";
+
+        ctx.fillText(this.text, 0, 0);
+
+        ctx.restore();
+    }
 }

@@ -19,6 +19,7 @@ var level = new GameObject();
 var sword = new GameObject();
 var bad = new GameObject();
 var wall = [];
+var texts = [];
 
 function init()
 {
@@ -42,54 +43,54 @@ function init()
     wall[0].h = 20;
     wall[0].w = 500;
     wall[0].color = `black`
-    wall[0].x = c.width/2 + 50;
-    wall[0].y = 50
+    wall[0].x = c.width/2 + 40;
+    wall[0].y = 60
     wall[0].world = level
 
     wall[1]=new GameObject();
     wall[1].h = 400;
     wall[1].w = 24;
-    wall[1].color = `black`
+    wall[1].color = `red`
     wall[1].x = 700;
     wall[1].y = c.height/2
     wall[1].world = level
 
     wall[2]=new GameObject();
-    wall[2].h = 400;
+    wall[2].h = 800;
     wall[2].w = 24;
     wall[2].color = `black`
-    wall[2].x = 200;
-    wall[2].y = c.height/2
+    wall[2].x = 1200;
+    wall[2].y = c.height/2 + 350 
     wall[2].world = level
 
     wall[3]=new GameObject();
-    wall[3].w = 275;
+    wall[3].w = 1000;
     wall[3].h = 24;
     wall[3].color = `black`
-    wall[3].x = c.width/2 -70
-    wall[3].y = c.height - 50
+    wall[3].x = c.width/2 + 300
+    wall[3].y = c.height + 500
     wall[3].world = level
 
     wall[4]=new GameObject();
     wall[4].w = 500;
     wall[4].h = 24;
     wall[4].color = `black`
-    wall[4].x = c.width/2 + 550
+    wall[4].x = c.width/2 + 562
     wall[4].y = c.height - 300
     wall[4].world = level
 
     wall[5]=new GameObject();
-    wall[5].h = 1200;
+    wall[5].h = 950;
     wall[5].w = 24;
     wall[5].color = `black`
-    wall[5].x = 456;
-    wall[5].y = c.height/2 + 800
+    wall[5].x = 200;
+    wall[5].y = c.height/2 + 275
     wall[5].world = level
 
     wall[6]=new GameObject();
     wall[6].h = 400;
     wall[6].w = 24;
-    wall[6].color = `black`
+    wall[6].color = `red`
     wall[6].x = 700;
     wall[6].y = c.height/2 + 400 
     wall[6].world = level
@@ -102,21 +103,22 @@ function init()
     wall[7].y = c.height/2 + 450 
     wall[7].world = level
 
-    wall[8]=new GameObject();
-    wall[8].h = 1000;
-    wall[8].w = 24;
-    wall[8].color = `black`
-    wall[8].x = 1200;
-    wall[8].y = c.height/2 + 450 
-    wall[8].world = level
 
-    wall[9]=new GameObject();
-    wall[9].w = 1000;
-    wall[9].h = 24;
-    wall[9].color = `black`
-    wall[9].x = c.width/2 + 350
-    wall[9].y = c.height + 500
-    wall[9].world = level
+    texts[0] = new GameObject();
+    texts[0].x = 1050;
+    texts[0].y = 1100;
+    texts[0].world = level;
+    texts[0].text = "THE FORBIDDEN WALL";
+    texts[0].textColor = "red";
+    texts[0].textFont = "30px Arial";
+
+    texts[1] = new GameObject();
+    texts[1].x = 1050;
+    texts[1].y = 1150;
+    texts[1].world = level;
+    texts[1].text = "WHICH MUST NOT BE CLIMBED";
+    texts[1].textColor = "red";
+    texts[1].textFont = "30px Arial";
 }
 
 sword.color = "#5023d3"
@@ -252,6 +254,9 @@ function game()
     avatar.graphic();
     sword.graphic();
     
+    for (let i = 0; i < texts.length; i++) {
+    texts[i].drawText();
+}
 }
 
 
