@@ -60,48 +60,72 @@ function init()
     wall[2].w = 24;
     wall[2].color = `black`
     wall[2].x = 1200;
-    wall[2].y = c.height/2 + 350 
+    wall[2].y = c.height/2 + 350
     wall[2].world = level
 
     wall[3]=new GameObject();
     wall[3].w = 1000;
     wall[3].h = 24;
-    wall[3].color = `black`
-    wall[3].x = c.width/2 + 300
-    wall[3].y = c.height + 500
+    wall[3].color = `black`;
+    wall[3].x = c.width/2 + 300;
+    wall[3].y = c.height + 500;
     wall[3].world = level
 
     wall[4]=new GameObject();
     wall[4].w = 500;
     wall[4].h = 24;
-    wall[4].color = `black`
-    wall[4].x = c.width/2 + 562
-    wall[4].y = c.height - 300
+    wall[4].color = `black`;
+    wall[4].x = c.width/2 + 562;
+    wall[4].y = c.height - 300;
     wall[4].world = level
 
     wall[5]=new GameObject();
     wall[5].h = 950;
     wall[5].w = 24;
-    wall[5].color = `black`
+    wall[5].color = `black`;
     wall[5].x = 200;
-    wall[5].y = c.height/2 + 275
+    wall[5].y = c.height/2 + 275;
     wall[5].world = level
 
     wall[6]=new GameObject();
     wall[6].h = 400;
     wall[6].w = 24;
-    wall[6].color = `red`
+    wall[6].color = `red`;
     wall[6].x = 700;
-    wall[6].y = c.height/2 + 400 
+    wall[6].y = c.height/2 + 400 ;
     wall[6].world = level
 
     wall[7]=new GameObject();
     wall[7].h = 600;
     wall[7].w = 24;
-    wall[7].color = `black`
+    wall[7].color = `black`;
     wall[7].x = 900;
-    wall[7].y = c.height/2 + 450 
+    wall[7].y = c.height/2 + 450;
     wall[7].world = level
+
+    wall[8]=new GameObject();
+    wall[8].h = 600;
+    wall[8].w = 24;
+    wall[8].color = `black`;
+    wall[8].x = 400;
+    wall[8].y = -500;
+    wall[8].world = level
+
+    wall[9]=new GameObject();
+    wall[9].h = 600;
+    wall[9].w = 24;
+    wall[9].color = `black`;
+    wall[9].x = 800;
+    wall[9].y = -500;
+    wall[9].world = level
+
+    wall[10]=new GameObject();
+    wall[10].h = 20;
+    wall[10].w = 400;
+    wall[10].color = `black`;
+    wall[10].x = 600;
+    wall[10].y = -800;
+    wall[10].world = level
 
 
     texts[0] = new GameObject();
@@ -119,7 +143,9 @@ function init()
     texts[1].text = "WHICH MUST NOT BE CLIMBED";
     texts[1].textColor = "red";
     texts[1].textFont = "30px Arial";
+
 }
+
 
 sword.color = "#5023d3"
 init();
@@ -253,7 +279,6 @@ function game()
     sword.render();
     avatar.graphic();
     sword.graphic();
-    
     for (let i = 0; i < texts.length; i++) {
     texts[i].drawText();
 }
