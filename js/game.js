@@ -103,6 +103,32 @@ function init()
     wall[7].y = c.height/2 + 450 
     wall[7].world = level
 
+    wall[8]=new GameObject();
+    wall[8].h = 600;
+    wall[8].w = 24;
+    wall[8].color = `black`
+    wall[8].x = 900;
+    wall[8].y = -500
+    wall[8].world = level
+
+    wall[9]=new GameObject();
+    wall[9].h = 600;
+    wall[9].w = 24;
+    wall[9].color = `black`
+    wall[9].x = 500;
+    wall[9].y = -500
+    wall[9].world = level
+
+    wall[10]=new GameObject();
+    wall[10].h = 20;
+    wall[10].w = 400;
+    wall[10].color = `black`
+    wall[10].x = 700;
+    wall[10].y = -800
+    wall[10].world = level
+
+    
+
 
     texts[0] = new GameObject();
     texts[0].x = 1050;
