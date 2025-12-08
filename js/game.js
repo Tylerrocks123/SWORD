@@ -17,7 +17,8 @@ var avatar = new GameObject();
 var wall = new GameObject();
 var level = new GameObject();
 var sword = new GameObject();
-var bad = new GameObject();
+var cactus = new GameObject();
+var guide = new GameObject();
 var wall = [];
 var texts = [];
 
@@ -33,8 +34,6 @@ function init()
     sword.img.h = sword.h;
     sword.w = 12;
     sword.h = 100;
-    
-
 
     level.x = 0; 
     level.y = 0;
@@ -127,6 +126,14 @@ function init()
     wall[10].y = -800;
     wall[10].world = level
 
+    wall[11]=new GameObject();
+    wall[11].h = 400;
+    wall[11].w = 24;
+    wall[11].color = `red`;
+    wall[11].x = 1400;
+    wall[11].y = 800 ;
+    wall[11].world = level
+
 
     texts[0] = new GameObject();
     texts[0].x = 1050;
@@ -144,6 +151,23 @@ function init()
     texts[1].textColor = "red";
     texts[1].textFont = "30px Arial";
 
+    guide.setImage("#default");
+    guide.x = 1420;
+    guide.y = 900;
+    guide.img.w = guide.w;
+    guide.img.h = guide.h;
+    guide.world = level;
+
+    cactus.setImage("#cactus");
+    cactus.x = 500;
+    cactus.y = 500;
+    cactus.img.w = cactus.w;
+    cactus.img.h = cactus.h;
+    cactus.world = level;
+    
+    if (sword.isOverPoint(cactus.center())) {
+        cactus.x = 10000;
+    }
 }
 
 
@@ -153,11 +177,25 @@ init();
 /*---------------Game Screens (states)----------------*/
 function menu()
 {
+    texts[2] = new GameObject();
+    texts[2].x = 180;
+    texts[2].y = 100;
+    texts[2].world = level;
+    texts[2].text = "COLLECT THE SOUL TO BEGIN";
+    texts[2].textColor = "black";
+    texts[2].textFont = "30px Arial";
+    texts[2].drawText();
+    
+    button.setImage("#soul"); 
+    button.img.w = guide.w;
+    button.img.h = guide.h;
+    button.graphic();
+
     if(clicked(button))
     {
         state = game;
+        texts[2].text = ""; 
     }
-    button.render()
 }
 
 function win()
@@ -279,6 +317,8 @@ function game()
     sword.render();
     avatar.graphic();
     sword.graphic();
+    guide.graphic();
+    cactus.graphic();
     for (let i = 0; i < texts.length; i++) {
     texts[i].drawText();
 }
