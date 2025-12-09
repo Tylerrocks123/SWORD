@@ -1,4 +1,3 @@
-
 var c = document.querySelector(`canvas`)
 var ctx = c.getContext(`2d`)
 var fps = 1000/60
@@ -25,7 +24,7 @@ var texts = [];
 function init()
 {
     state = menu
-
+    sword = new GameObject();
     avatar.setImage("#default");
     sword.setImage("#swordup");
     avatar.img.w = avatar.w;
@@ -164,10 +163,8 @@ function init()
     cactus.img.w = cactus.w;
     cactus.img.h = cactus.h;
     cactus.world = level;
+    sword.color = "#5023d3"
     
-    if (sword.isOverPoint(cactus.center())) {
-        cactus.x = 10000;
-    }
 }
 
 
@@ -178,13 +175,22 @@ init();
 function menu()
 {
     texts[2] = new GameObject();
-    texts[2].x = 180;
+    texts[2].x = 250;
     texts[2].y = 100;
     texts[2].world = level;
-    texts[2].text = "COLLECT THE SOUL TO BEGIN";
+    texts[2].text = "COLLECT THE SOUL";
     texts[2].textColor = "black";
     texts[2].textFont = "30px Arial";
     texts[2].drawText();
+
+    texts[3] = new GameObject();
+    texts[3].x = 250;
+    texts[3].y = 150;
+    texts[3].world = level;
+    texts[3].text = "TO BEGIN";
+    texts[3].textColor = "black";
+    texts[3].textFont = "30px Arial";
+    texts[3].drawText();
     
     button.setImage("#soul"); 
     button.img.w = guide.w;
@@ -194,7 +200,8 @@ function menu()
     if(clicked(button))
     {
         state = game;
-        texts[2].text = ""; 
+        texts[2].text = "";  
+        texts[3].text = "";
     }
 }
 
@@ -204,7 +211,31 @@ function win()
 }
 function lose()
 {
+    avatar.vx = 0;
+    avatar.vy = 0;
 
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, c.width, c.height);
+
+    ctx.fillStyle = "white";
+    ctx.font = "48px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText("GAME OVER", c.width / 2, c.height / 2);
+
+    var restartCube = new GameObject();
+    restartCube.world = {x: 0, y: 0};
+    restartCube.x = c.width / 2;
+    restartCube.y = c.height / 2 + 100;
+    restartCube.w = 100;
+    restartCube.h = 100;
+    restartCube.setImage("#soul");
+    restartCube.graphic();
+    restartCube.render();
+
+    if(clicked(restartCube)) {
+        state = menu;
+        init();
+    }
 }
 
 function game()
@@ -314,6 +345,7 @@ function game()
     wall[i].render();
    }
 
+
     sword.render();
     avatar.graphic();
     sword.graphic();
@@ -322,7 +354,15 @@ function game()
     for (let i = 0; i < texts.length; i++) {
     texts[i].drawText();
 }
+
+if(sword.isOverPoint(cactus.center())) {
+    cactus.x = -1000;
+    cactus.y = -1000;
 }
 
+if(avatar.isOverPoint(cactus.center())) {
+lose();
+}
+}
 
 

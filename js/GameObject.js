@@ -124,18 +124,22 @@ class GameObject
         }
         return false;
     }
+       center()
+    {
+        return { x: this.x, y: this.y, world: this.world };
+    }
     isOverPoint(_point)
     {
-        if(
-            this.top().y+this.world.y < _point.y+_point.world.y &&
-            this.bottom().y+this.world.y > _point.y+_point.world.y &&
-            this.left().x+this.world.x < _point.x+_point.world.y &&
-            this.right().x+this.world.x > _point.x+_point.world.y
-        )
-        {
-            return true
-        }
-        return false; 
+    if(
+        this.top().y + this.world.y < _point.y + _point.world.y &&
+        this.bottom().y + this.world.y > _point.y + _point.world.y &&
+        this.left().x + this.world.x < _point.x + _point.world.x &&
+        this.right().x + this.world.x > _point.x + _point.world.x
+    )
+    {
+        return true;
+    }
+    return false;
     }
     drawText(_x=this.x, _y=this.y) {
         if (!this.text) return;
