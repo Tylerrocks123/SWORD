@@ -6,7 +6,7 @@ var timer = setInterval(main, fps)
 function main()
 {
     ctx.clearRect(0,0,c.width,c.height); 
-    state()
+    state();
 }
 
 //setup
@@ -17,9 +17,15 @@ var wall = new GameObject();
 var level = new GameObject();
 var sword = new GameObject();
 var cactus = new GameObject();
+var cactus2 = new GameObject();
 var guide = new GameObject();
+var destroySoul = new GameObject();
 var wall = [];
 var texts = [];
+var attackSound = new Audio("./sounds/attack.wav");
+var destroySound = new Audio("./sounds/destroy.wav");
+var selectSound = new Audio("./sounds/selectSoul.wav");
+var soundplayed = false;
 
 function init()
 {
@@ -133,7 +139,6 @@ function init()
     wall[11].y = 800 ;
     wall[11].world = level
 
-
     texts[0] = new GameObject();
     texts[0].x = 1050;
     texts[0].y = 1100;
@@ -158,22 +163,36 @@ function init()
     guide.world = level;
 
     cactus.setImage("#cactus");
-    cactus.x = 500;
+    cactus.x = 800;
     cactus.y = 500;
     cactus.img.w = cactus.w;
     cactus.img.h = cactus.h;
     cactus.world = level;
-    sword.color = "#5023d3"
-    
+
+    cactus2.setImage("#cactus");
+    cactus2.x = 1050;
+    cactus2.y = 600;
+    cactus2.img.w = cactus2.w;
+    cactus2.img.h = cactus2.h;
+    cactus2.world = level;
+
+    destroySoul.setImage("#soul");
+    destroySoul.x = 600;
+    destroySoul.y = -700;
+    destroySoul.img.w = destroySoul.w;
+    destroySoul.img.h = destroySoul.h;
+    destroySoul.world = level;
+
+    sword.color = "#5023d3";  
 }
 
-
-sword.color = "#5023d3"
+sword.color = "#5023d3";
 init();
 
 /*---------------Game Screens (states)----------------*/
 function menu()
 {
+
     texts[2] = new GameObject();
     texts[2].x = 250;
     texts[2].y = 100;
@@ -199,6 +218,7 @@ function menu()
 
     if(clicked(button))
     {
+        selectSound.play();
         state = game;
         texts[2].text = "";  
         texts[3].text = "";
@@ -207,8 +227,46 @@ function menu()
 
 function win()
 {
+    avatar.vx = 0;
+    avatar.vy = 0;
 
+    var winImage = new GameObject();
+    winImage.world = { x: 0, y: 0 };
+    winImage.x = c.width / 2 - 50;
+    winImage.y = c.height / 2 - 150;
+    winImage.w = 1000;
+    winImage.h = 1000;
+    winImage.setImage("#depthsimg");
+    winImage.img.w = winImage.w;
+    winImage.img.h = winImage.h;
+    winImage.graphic();
+    
+    ctx.fillStyle = "white";
+    ctx.font = "25px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText("YOU ARE FREE CLICK THE SOUL IF YOU WISH TO RETURN", c.width / 2, c.height / 2 - 50);
+
+    var restartSoul = new GameObject();
+    restartSoul.world = { x: 0, y: 0 };      
+    restartSoul.x = c.width / 2;
+    restartSoul.y = c.height / 2 + 100;
+    restartSoul.w = 100;
+    restartSoul.h = 100;
+
+    restartSoul.setImage("#soul");
+    restartSoul.img.w = restartSoul.w;      
+    restartSoul.img.h = restartSoul.h;
+
+    restartSoul.graphic();
+   
+    if (clicked(restartSoul))
+    {
+    selectSound.play();
+    state = menu;
+    init();
 }
+}
+
 function lose()
 {
     avatar.vx = 0;
@@ -216,26 +274,30 @@ function lose()
 
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, c.width, c.height);
-
     ctx.fillStyle = "white";
-    ctx.font = "48px Arial";
+    ctx.font = "30px Arial";
     ctx.textAlign = "center";
-    ctx.fillText("GAME OVER", c.width / 2, c.height / 2);
+    ctx.fillText("GAME OVER COLLECT THE SOUL TO RESTART", c.width / 2, c.height / 2);
 
-    var restartCube = new GameObject();
-    restartCube.world = {x: 0, y: 0};
-    restartCube.x = c.width / 2;
-    restartCube.y = c.height / 2 + 100;
-    restartCube.w = 100;
-    restartCube.h = 100;
-    restartCube.setImage("#soul");
-    restartCube.graphic();
-    restartCube.render();
+    var restartSoul = new GameObject();
+    restartSoul.world = { x: 0, y: 0 };      
+    restartSoul.x = c.width / 2;
+    restartSoul.y = c.height / 2 + 100;
+    restartSoul.w = 100;
+    restartSoul.h = 100;
 
-    if(clicked(restartCube)) {
-        state = menu;
-        init();
-    }
+    restartSoul.setImage("#soul");
+    restartSoul.img.w = restartSoul.w;      
+    restartSoul.img.h = restartSoul.h;
+
+    restartSoul.graphic();
+   
+    if (clicked(restartSoul))
+    {
+    selectSound.play();
+    state = menu;
+    init();
+}
 }
 
 function game()
@@ -258,30 +320,47 @@ function game()
     {
         avatar.vy += 1;
     }
-    if(up == true)
+   if (up) 
     {
-        sword.x = avatar.top().x;
-        sword.y = avatar.top().y;
-        sword.angle = 0;
+    if (!attackOnce) {
+        attackSound.play(); 
+        attackOnce = true;
     }
-    if(down == true)
-    {
+    sword.x = avatar.top().x;
+    sword.y = avatar.top().y;
+    sword.angle = 0;
+    }
+    if (down) {
+    if (!attackOnce) {
+        attackSound.play(); 
+        attackOnce = true;
+    }
         sword.x = avatar.bottom().x;
         sword.y = avatar.bottom().y;
         sword.angle = 180;
     }
-    if(left == true)
-    {
+    if (left) {
+    if (!attackOnce) {
+        attackSound.play(); 
+        attackOnce = true;
+    }
         sword.x = avatar.left().x;
         sword.y = avatar.left().y;
         sword.angle = -90;
     }
-    if(right == true)
-    {
+     if (right) {
+    if (!attackOnce) {
+        attackSound.play(); 
+        attackOnce = true;
+    }
         sword.x = avatar.right().x;
         sword.y = avatar.right().y;
         sword.angle = 90
     }
+    if (!up && !down && !left && !right) {
+    attackOnce = false;
+    }
+
     avatar.vx *= .85;
     avatar.vy *= .85;
     avatar.move();
@@ -318,8 +397,6 @@ function game()
       
     }
     
-   
-
     /*-------Level movement threshold----*/
     //if(avatar.x > 500 || avatar.x < 300)
     {
@@ -345,23 +422,83 @@ function game()
     wall[i].render();
    }
 
-
     sword.render();
     avatar.graphic();
     sword.graphic();
     guide.graphic();
     cactus.graphic();
-    for (let i = 0; i < texts.length; i++) {
+    cactus2.graphic();
+    destroySoul.graphic();
+    for (let i = 0; i < texts.length; i++) 
+    {
     texts[i].drawText();
-}
+    }
 
-if(sword.isOverPoint(cactus.center())) {
-    cactus.x = -1000;
-    cactus.y = -1000;
-}
+    if(
+    sword.isOverPoint(cactus.top()) ||
+    sword.isOverPoint(cactus.bottom()) ||
+    sword.isOverPoint(cactus.left()) ||
+    sword.isOverPoint(cactus.right())
+    ) 
+    {
+    cactus.x = -10000;
+    cactus.y = -10000;
+    destroySound.play();
+    }
 
-if(avatar.isOverPoint(cactus.center())) {
-lose();
+    if(
+    sword.isOverPoint(cactus2.top()) ||
+    sword.isOverPoint(cactus2.bottom()) ||
+    sword.isOverPoint(cactus2.left()) ||
+    sword.isOverPoint(cactus2.right())
+    ) 
+    {
+    cactus2.x = -10000;
+    cactus2.y = -10000;
+    destroySound.play();
+    }
+
+    if(
+    sword.isOverPoint(guide.top()) ||
+    sword.isOverPoint(guide.bottom()) ||
+    sword.isOverPoint(guide.left()) ||
+    sword.isOverPoint(guide.right())
+    ) 
+    {
+    destroySound.play();
+    guide.x = -10000;
+    guide.y = -10000;
+    }
+
+    if(
+    avatar.isOverPoint(cactus.top()) ||
+    avatar.isOverPoint(cactus.bottom()) ||
+    avatar.isOverPoint(cactus.left()) ||
+    avatar.isOverPoint(cactus.right())
+    ) 
+    {
+    lose();
+    }
+
+    if(
+    avatar.isOverPoint(cactus2.top()) ||
+    avatar.isOverPoint(cactus2.bottom()) ||
+    avatar.isOverPoint(cactus2.left()) ||
+    avatar.isOverPoint(cactus2.right())
+    ) 
+    {
+    lose();
+    }
+
+    if(
+    sword.isOverPoint(destroySoul.top()) ||
+    sword.isOverPoint(destroySoul.bottom()) ||
+    sword.isOverPoint(destroySoul.left()) ||
+    sword.isOverPoint(destroySoul.right())
+    ) 
+    {
+        destroySound.play();
+    state = win;
 }
 }
 

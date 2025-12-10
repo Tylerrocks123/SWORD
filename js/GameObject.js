@@ -68,7 +68,7 @@ class GameObject
             this.img.h
             )
         ctx.restore();
-    }
+    }   
 
     //Draws a rectangle 
     render()
@@ -78,7 +78,7 @@ class GameObject
             ctx.translate(this.x+this.world.x, this.y+this.world.y)
             ctx.rotate(this.angle*Math.PI/180)
             ctx.fillRect(-this.w/2, -this.h/2, this.w, this.h)
-        ctx.restore();
+            ctx.restore();
     }
 
     //Moves an object by adding it's velocity to it's position on each axis
